@@ -8,7 +8,7 @@ export default function ProductsLayout({
 }>) {
   return (
     <ProductsProvider>
-      <main className="flex justify-center items-center">{children}</main>
+      <main>{children}</main>
     </ProductsProvider>
   );
 }
