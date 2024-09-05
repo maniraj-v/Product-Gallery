@@ -17,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, "min-h-screen p-4 sm:p-8 lg:px-16")}>{children}</body>
+      <body className={cn(inter.className, "min-h-screen p-4 sm:p-8 lg:px-16")}>
+        {children}
+      </body>
     </html>
   );
 }

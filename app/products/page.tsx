@@ -20,7 +20,7 @@ function Products() {
         <SearchBar onSearch={filterProducts} placeHolder="Search by title..." />
         <ProductHeader />
       </section>
-      <section className="max-h-[400px] overflow-auto no-scrollbar">
+      <section className="max-h-[400px] overflow-auto pr-4">
         <ProductGallery />
       </section>
     </main>
