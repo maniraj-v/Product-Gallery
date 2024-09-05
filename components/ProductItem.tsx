@@ -6,13 +6,14 @@ interface IProductItem {
   product: ProductType;
 }
 
-export default function ProductItem({ product }: IProductItem) {
+export default function ProductItem({ product, productRef }: IProductItem) {
   const { albumId, id, title, url, thumbnailUrl } = product;
   const formattedTitle = title.slice(0, 1).toUpperCase() + title.slice(1);
 
   return (
     <li
       key={id}
+      ref={productRef}
       className="max-w-[300px] w-full justify-self-center border border-gray-200 shadow-lg rounded-md overflow-hidden
       hover:scale-105 transition duration-300
       "

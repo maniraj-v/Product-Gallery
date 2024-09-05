@@ -24,11 +24,13 @@ const productsReducer = (state, action) => {
     return { ...state, error: payload };
   }
   if (type === "LOAD_PRODUCTS") {
+    const products = [...state.products, ...payload];
     return {
       ...state,
-      products: payload,
-      filteredProducts: payload,
-      filteredSortedProducts: payload,
+      products,
+      filteredProducts: products,
+      filteredSortedProducts: products,
+      hasMoreData: products.length < state.totalProductsCount,
     };
   }
   if (type === "FILTER_PRODUCTS") {

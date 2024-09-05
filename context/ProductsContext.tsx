@@ -12,6 +12,9 @@ const initialState = {
   filteredSortedProducts: [],
   searchTerm: "",
   sortValue: "",
+  totalProductsCount: 5000,
+  page: 0,
+  hasMoreData: true,
 };
 
 const ProductsContext = React.createContext();
@@ -19,10 +22,12 @@ const ProductsContext = React.createContext();
 export function ProductsProvider({ children }) {
   const [state, dispatch] = useReducer(productsReducer, initialState);
 
-  const fetchProducts = useCallback(async () => {
+  const fetchProducts = useCallback(async (page: number) => {
+    const limit = 20;
+    const startPosition = page * limit;
     try {
       dispatch({ type: "UPDATE_LOADING_STATE", payload: true });
-      const products = await getAllProducts();
+      const products = await getAllProducts(startPosition);
       dispatch({ type: "LOAD_PRODUCTS", payload: products });
     } catch (e) {
       dispatch({ type: "UPDATE_ERROR_MSG", payload: e });
@@ -39,16 +44,13 @@ export function ProductsProvider({ children }) {
     dispatch({ type: "SORT_PRODUCTS", payload: option });
   }, []);
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
   return (
     <ProductsContext.Provider
       value={{
         ...state,
         filterProducts,
         sortProducts,
+        fetchProducts,
       }}
     >
       {children}

@@ -1,7 +1,14 @@
 import { ProductType } from "@/types/products";
 
-async function getAllProducts(): Promise<ProductType[]> {
-  const response = await fetch(`https://jsonplaceholder.typicode.com/photos`);
+const sleep = (duration: number) =>
+  new Promise((resolve) => setTimeout(resolve, duration));
+
+async function getAllProducts(start = 0, limit = 20): Promise<ProductType[]> {
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/photos?_start=${start}&_limit=${limit}`
+  );
+  // Artificial delay to show loading effect when scrolling
+  await sleep(1000);
   return await response.json();
 }
 

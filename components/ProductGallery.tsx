@@ -6,26 +6,33 @@ import Dropdown, { IOption } from "./Dropdown";
 import { useProductsContext } from "@/context/ProductsContext";
 import { sortOptionsFilter } from "@/constants/sortOptions";
 import CardSkeleton from "./CardSkeleton";
+import InfiniteScroll from "./InfiniteScroll";
 
 export default function ProductGallery() {
-  const { loading, error, filteredSortedProducts, sortProducts } =
-    useProductsContext();
+  const {
+    loading,
+    error,
+    filteredSortedProducts,
+    sortProducts,
+    fetchProducts,
+    hasMoreData,
+  } = useProductsContext();
 
-  if (loading) {
-    return (
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-16 lg:px-0">
-        {Array.from({ length: 5 }).map((_, index) => {
-          return <CardSkeleton key={index} />;
-        })}
-      </ul>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-16 lg:px-0">
+  //       {Array.from({ length: 5 }).map((_, index) => {
+  //         return <CardSkeleton key={index} />;
+  //       })}
+  //     </ul>
+  //   );
+  // }
 
   if (error) {
     return <p>Something went wrong... {error}</p>;
   }
 
-  if (filteredSortedProducts.length === 0) {
+  if (!loading && filteredSortedProducts.length === 0) {
     return <p>No products found</p>;
   }
 
@@ -42,11 +49,30 @@ export default function ProductGallery() {
           onSelect={sortProducts}
         />
       </div>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      {/* <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {filteredSortedProducts.slice(0, 20).map((product: ProductType) => {
           return <ProductItem product={product} key={product.id} />;
         })}
-      </ul>
+      </ul> */}
+      <InfiniteScroll
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+        fetchData={fetchProducts}
+        data={filteredSortedProducts}
+        hasMoreData={hasMoreData}
+        loading={loading}
+        loader={
+          <>
+            {Array.from({ length: 8 }).map((_, index) => {
+              return <CardSkeleton key={index} />;
+            })}
+          </>
+        }
+        renderItem={(product: ProductType, index: number, ref) => {
+          return (
+            <ProductItem product={product} key={product.id} productRef={ref} />
+          );
+        }}
+      />
     </section>
   );
 }
