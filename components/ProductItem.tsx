@@ -27,7 +27,7 @@ export default function ProductItem({ product, productRef }: IProductItem) {
               height={150}
               alt={title}
               loading="lazy"
-              className="w-full h-full object-cover group-hover:scale-125 transition duration-300"
+              className="w-full h-full object-cover object-center group-hover:scale-125 transition duration-300"
             />
           </div>
           <div className="px-6 py-4 text-sm">

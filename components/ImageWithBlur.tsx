@@ -23,16 +23,17 @@ export default function ImageWithBlur({
   const [isImageLoading, setImageLoading] = useState(true);
 
   return (
-    <div>
-      <Image
-        alt={alt}
-        src={src}
-        height={height}
-        width={width}
-        loading={loading}
-        onLoad={() => setImageLoading(false)}
-        className={cn(className, `${isImageLoading ? "blur animate-pulse" : "remove-blur"}`)}
-      />
-    </div>
+    <Image
+      alt={alt}
+      src={src}
+      height={height}
+      width={width}
+      loading={loading}
+      onLoad={() => setImageLoading(false)}
+      className={cn(
+        className,
+        `${isImageLoading ? "blur bg-slate-200" : "remove-blur animate-none"}`
+      )}
+    />
   );
 }
