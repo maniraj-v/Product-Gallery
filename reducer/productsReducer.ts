@@ -25,11 +25,14 @@ const productsReducer = (state, action) => {
   }
   if (type === "LOAD_PRODUCTS") {
     const products = [...state.products, ...payload];
+    const filteredProducts = products.filter(({ title }) =>
+      title.toLowerCase().includes(state.searchTerm.toLowerCase())
+    );
     return {
       ...state,
       products,
-      filteredProducts: products,
-      filteredSortedProducts: products,
+      filteredProducts: filteredProducts,
+      filteredSortedProducts: sortProducts(filteredProducts, state.sortValue),
       hasMoreData: products.length < state.totalProductsCount,
     };
   }
@@ -42,17 +45,15 @@ const productsReducer = (state, action) => {
       ...state,
       filteredProducts: filteredProducts,
       filteredSortedProducts: sortProducts(filteredProducts, state.sortValue),
+      searchTerm,
     };
   }
   if (type === "SORT_PRODUCTS") {
-    const option = payload;
+    const value = payload;
     return {
       ...state,
-      sortValue: option.value,
-      filteredSortedProducts: sortProducts(
-        state.filteredProducts,
-        option.value
-      ),
+      sortValue: value,
+      filteredSortedProducts: sortProducts(state.filteredProducts, value),
     };
   }
 

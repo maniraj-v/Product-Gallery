@@ -2,7 +2,6 @@ import { getAllProducts } from "@/services/products";
 import { ProductType } from "@/types/products";
 import ProductItem from "./ProductItem";
 import { useEffect, useState } from "react";
-import Dropdown, { IOption } from "./Dropdown";
 import { useProductsContext } from "@/context/ProductsContext";
 import { sortOptionsFilter } from "@/constants/sortOptions";
 import CardSkeleton from "./CardSkeleton";

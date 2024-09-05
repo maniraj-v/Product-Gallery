@@ -59,8 +59,8 @@ export function ProductsProvider({ children }: { children: React.ReactNode }) {
     dispatch({ type: "FILTER_PRODUCTS", payload: searchTerm });
   }, []);
 
-  const sortProducts = useCallback((option: IOption) => {
-    dispatch({ type: "SORT_PRODUCTS", payload: option });
+  const sortProducts = useCallback((value: IOption["value"]) => {
+    dispatch({ type: "SORT_PRODUCTS", payload: value });
   }, []);
 
   return (
