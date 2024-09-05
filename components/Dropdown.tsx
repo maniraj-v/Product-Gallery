@@ -9,7 +9,7 @@ export interface IOption {
 interface IProductDetails {
   label?: string;
   options: IOption[];
-  onSelect: (option: IOption['value']) => void;
+  onSelect: (option: IOption["value"]) => void;
 }
 
 function Dropdown({
@@ -34,7 +34,11 @@ function Dropdown({
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
       >
         {options.map((option) => {
-          return <option value={option.value}>{option.label}</option>;
+          return (
+            <option value={option.value} key={option.label}>
+              {option.label}
+            </option>
+          );
         })}
       </select>
     </div>
