@@ -1,8 +1,27 @@
 import { IOption } from "@/components/Dropdown";
-import useProducts from "@/hooks/useProducts";
 import productsReducer from "@/reducer/productsReducer";
 import { getAllProducts } from "@/services/products";
-import React, { useCallback, useContext, useEffect, useReducer } from "react";
+import { ProductType } from "@/types/products";
+import React, {
+  ReactElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
+
+interface IProductContext {
+  loading: boolean;
+  error: string;
+  products: ProductType[];
+  filteredProducts: ProductType[];
+  filteredSortedProducts: ProductType[];
+  searchTerm: string;
+  sortValue: string;
+  totalProductsCount: number;
+  page: number;
+  hasMoreData: boolean;
+}
 
 const initialState = {
   loading: true,
@@ -17,9 +36,9 @@ const initialState = {
   hasMoreData: true,
 };
 
-const ProductsContext = React.createContext();
+const ProductsContext = React.createContext<IProductContext>(initialState);
 
-export function ProductsProvider({ children }) {
+export function ProductsProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(productsReducer, initialState);
 
   const fetchProducts = useCallback(async (page: number) => {

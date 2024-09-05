@@ -18,16 +18,6 @@ export default function ProductGallery() {
     hasMoreData,
   } = useProductsContext();
 
-  // if (loading) {
-  //   return (
-  //     <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-16 lg:px-0">
-  //       {Array.from({ length: 5 }).map((_, index) => {
-  //         return <CardSkeleton key={index} />;
-  //       })}
-  //     </ul>
-  //   );
-  // }
-
   if (error) {
     return <p>Something went wrong... {error}</p>;
   }
@@ -37,23 +27,7 @@ export default function ProductGallery() {
   }
 
   return (
-    <section>
-      <div className="mb-4 flex justify-between gap-8">
-        <p className="flex gap-2 text-gray-700">
-          <span className="text-gray-600">No.of products : </span>
-          <span className="font-semibold">{filteredSortedProducts.length}</span>
-        </p>
-        <Dropdown
-          label={"Sort"}
-          options={sortOptionsFilter}
-          onSelect={sortProducts}
-        />
-      </div>
-      {/* <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {filteredSortedProducts.slice(0, 20).map((product: ProductType) => {
-          return <ProductItem product={product} key={product.id} />;
-        })}
-      </ul> */}
+    <>
       <InfiniteScroll
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
         fetchData={fetchProducts}
@@ -73,6 +47,6 @@ export default function ProductGallery() {
           );
         }}
       />
-    </section>
+    </>
   );
 }

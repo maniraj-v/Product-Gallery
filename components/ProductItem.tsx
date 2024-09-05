@@ -1,6 +1,6 @@
 import { ProductType } from "@/types/products";
-import Image from "next/image";
 import Link from "next/link";
+import ImageWithBlur from "./ImageWithBlur";
 
 interface IProductItem {
   product: ProductType;
@@ -21,7 +21,7 @@ export default function ProductItem({ product, productRef }: IProductItem) {
       <Link href={`products/${id}`} className="block">
         <article>
           <div className="group w-full h-[150px] overflow-hidden">
-            <Image
+            <ImageWithBlur
               src={thumbnailUrl}
               width={150}
               height={150}

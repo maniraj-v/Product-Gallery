@@ -6,18 +6,24 @@ import { ProductType } from "@/types/products";
 import ProductGallery from "@/components/ProductGallery";
 import SearchBar from "@/components/SearchBar";
 import { useProductsContext } from "@/context/ProductsContext";
+import ProductHeader from "@/components/ProductHeader";
 
 function Products() {
   const { filterProducts } = useProductsContext();
 
   return (
-    <div>
-      <h1 className="text-4xl mb-8 font-bold text-blue-950 opacity-95 text-center">
-        Product Gallery
-      </h1>
-      <SearchBar onSearch={filterProducts} placeHolder="Search by title..." />
-      <ProductGallery />
-    </div>
+    <main>
+      <section>
+        <h1 className="text-4xl mb-8 font-bold text-blue-950 opacity-95 text-center">
+          Product Gallery
+        </h1>
+        <SearchBar onSearch={filterProducts} placeHolder="Search by title..." />
+        <ProductHeader />
+      </section>
+      <section className="max-h-[400px] overflow-auto no-scrollbar">
+        <ProductGallery />
+      </section>
+    </main>
   );
 }
 

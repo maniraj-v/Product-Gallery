@@ -6,9 +6,5 @@ export default function ProductsLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <ProductsProvider>
-      <main>{children}</main>
-    </ProductsProvider>
-  );
+  return <ProductsProvider>{children}</ProductsProvider>;
 }

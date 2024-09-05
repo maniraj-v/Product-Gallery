@@ -8,7 +8,7 @@ async function getAllProducts(start = 0, limit = 20): Promise<ProductType[]> {
     `https://jsonplaceholder.typicode.com/photos?_start=${start}&_limit=${limit}`
   );
   // Artificial delay to show loading effect when scrolling
-  await sleep(1000);
+  await sleep(2000);
   return await response.json();
 }
 
