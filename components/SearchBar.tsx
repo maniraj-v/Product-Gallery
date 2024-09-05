@@ -4,7 +4,7 @@ import useDebounce from "@/hooks/useDebounce";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface ISearchBar {
-  onSearch: Dispatch<SetStateAction<string>>;
+  onSearch: (searchTerm: string) => void;
   placeHolder?: string;
 }
 

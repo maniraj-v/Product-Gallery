@@ -1,11 +1,8 @@
-import { getAllProducts } from "@/services/products";
-import { ProductType } from "@/types/products";
-import ProductItem from "./ProductItem";
-import { useEffect, useState } from "react";
 import { useProductsContext } from "@/context/ProductsContext";
-import { sortOptionsFilter } from "@/constants/sortOptions";
+import { ProductType } from "@/types/products";
 import CardSkeleton from "./CardSkeleton";
 import InfiniteScroll from "./InfiniteScroll";
+import ProductItem from "./ProductItem";
 
 export default function ProductGallery() {
   const {
@@ -40,7 +37,7 @@ export default function ProductGallery() {
             })}
           </>
         }
-        renderItem={(product: ProductType, index: number, ref) => {
+        renderItem={(product: ProductType, index: number, ref: any) => {
           return (
             <ProductItem product={product} key={product.id} productRef={ref} />
           );

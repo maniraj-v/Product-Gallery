@@ -2,15 +2,9 @@ import { IOption } from "@/components/Dropdown";
 import productsReducer from "@/reducer/productsReducer";
 import { getAllProducts } from "@/services/products";
 import { ProductType } from "@/types/products";
-import React, {
-  ReactElement,
-  useCallback,
-  useContext,
-  useEffect,
-  useReducer,
-} from "react";
+import React, { useCallback, useContext, useReducer } from "react";
 
-interface IProductContext {
+interface IContextVariables {
   loading: boolean;
   error: string;
   products: ProductType[];
@@ -23,6 +17,14 @@ interface IProductContext {
   hasMoreData: boolean;
 }
 
+interface IContextmethods {
+  fetchProducts: (page: number) => void;
+  filterProducts: (searchTerm: string) => void;
+  sortProducts: (value: IOption["value"]) => void;
+}
+
+export type IProductContext = IContextVariables & IContextmethods;
+
 const initialState = {
   loading: true,
   error: "",
@@ -34,6 +36,9 @@ const initialState = {
   totalProductsCount: 5000,
   page: 0,
   hasMoreData: true,
+  fetchProducts: (page: number) => {},
+  filterProducts: (searchTerm: string) => {},
+  sortProducts: (value: IOption["value"]) => {},
 };
 
 const ProductsContext = React.createContext<IProductContext>(initialState);

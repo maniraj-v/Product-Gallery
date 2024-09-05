@@ -1,6 +1,8 @@
 import { sortOptions } from "@/constants/sortOptions";
+import { IProductContext } from "@/context/ProductsContext";
+import { ProductType } from "@/types/products";
 
-const sortProducts = (products, value) => {
+const sortProducts = (products: ProductType[], value: string) => {
   const sortedData = [...products];
   if (value === sortOptions["By AlbumID Asc"]) {
     sortedData.sort((a, b) => {
@@ -15,7 +17,18 @@ const sortProducts = (products, value) => {
   return sortedData;
 };
 
-const productsReducer = (state, action) => {
+const filterProducts = (products: ProductType[], searchTerm: string) => {
+  return products.filter(({ title }) =>
+    title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+};
+
+interface IAction {
+  type: string;
+  payload: any;
+}
+
+const productsReducer = (state: IProductContext, action: IAction) => {
   const { type, payload } = action;
   if (type === "UPDATE_LOADING_STATE") {
     return { ...state, loading: payload };
@@ -25,9 +38,7 @@ const productsReducer = (state, action) => {
   }
   if (type === "LOAD_PRODUCTS") {
     const products = [...state.products, ...payload];
-    const filteredProducts = products.filter(({ title }) =>
-      title.toLowerCase().includes(state.searchTerm.toLowerCase())
-    );
+    const filteredProducts = filterProducts(products, state.searchTerm);
     return {
       ...state,
       products,
@@ -38,9 +49,7 @@ const productsReducer = (state, action) => {
   }
   if (type === "FILTER_PRODUCTS") {
     const searchTerm = payload;
-    const filteredProducts = state.products.filter(({ title }) =>
-      title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredProducts = filterProducts(state.products, searchTerm);
     return {
       ...state,
       filteredProducts: filteredProducts,

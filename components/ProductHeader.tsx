@@ -1,6 +1,6 @@
-import Dropdown from "./Dropdown";
-import { useProductsContext } from "@/context/ProductsContext";
 import { sortOptionsFilter } from "@/constants/sortOptions";
+import { useProductsContext } from "@/context/ProductsContext";
+import Dropdown from "./Dropdown";
 
 function ProductHeader() {
   const { filteredSortedProducts, sortProducts } = useProductsContext();

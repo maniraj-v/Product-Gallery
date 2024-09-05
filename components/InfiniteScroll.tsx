@@ -1,4 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { MutableRefObject, ReactNode, useEffect, useRef } from "react";
+
+interface InfiniteScrollProps {
+  className: string;
+  fetchData: any;
+  data: any[];
+  loader: ReactNode;
+  renderItem: (item: any, index: number, ref: any) => ReactNode;
+  hasMoreData: boolean;
+  loading: boolean;
+}
 
 const InfiniteScroll = ({
   className = "",
@@ -8,10 +18,10 @@ const InfiniteScroll = ({
   renderItem,
   hasMoreData,
   loading,
-}) => {
+}: InfiniteScrollProps) => {
   const pageRef = useRef(0);
   const mountedRef = useRef(false);
-  const observer = useRef(null);
+  const observer = useRef<IntersectionObserver | null>(null);
 
   const getData = async () => {
     try {
@@ -21,7 +31,7 @@ const InfiniteScroll = ({
     }
   };
 
-  const lastElementRef = (node) => {
+  const lastElementRef = (node: any) => {
     if (loading || !hasMoreData) {
       return;
     }

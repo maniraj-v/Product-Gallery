@@ -4,6 +4,7 @@ import ImageWithBlur from "./ImageWithBlur";
 
 interface IProductItem {
   product: ProductType;
+  productRef: any;
 }
 
 export default function ProductItem({ product, productRef }: IProductItem) {
